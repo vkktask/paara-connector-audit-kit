@@ -80,6 +80,26 @@ See [`audit/13-connector-audit.md`](audit/13-connector-audit.md) and [`audit/cod
 
 **Governance implication:** undocumented items should be recorded as **owned open risks** — with a named owner and a review date — and the lower-to-upper score band reported instead of a single number. Approval on the favourable assumption relies on facts nobody has verified.
 
+## The scanner (working code)
+
+`src/paara_scanner/` is a runnable Python implementation of the
+scoring rule above — no dependencies beyond the Python 3.9+ standard
+library. See [`src/README.md`](src/README.md).
+
+```bash
+PYTHONPATH=src python -m paara_scanner audit     # score the 13-connector dataset
+PYTHONPATH=src python -m paara_scanner check     # validate vs the published audit
+PYTHONPATH=src python -m paara_scanner score --name "Slack MCP" --factors YNNNYYY --restricted
+PYTHONPATH=src python -m paara_scanner scan --docs docs/ --name "My Connector"
+python -m unittest discover -s tests -v          # 20 tests
+```
+
+`audit` reproduces the published bands exactly (9 Critical lower /
+12 Critical upper; restricted bands for the 8 connectors with a
+documented write-limiting control). `scan` is keyword triage of
+documentation into factor codes with verbatim evidence snippets —
+a human coder must verify every code before relying on the score.
+
 ## How to use this kit
 
 1. **Inventory** — list the connector in the DPIA template (`templates/connector-dpia-template.md`).
@@ -103,9 +123,29 @@ See [`audit/13-connector-audit.md`](audit/13-connector-audit.md) and [`audit/cod
 ├── README.md                          This file
 ├── LICENSE                            MIT License
 ├── CONTRIBUTING.md                    How to re-code, extend the corpus, or report an issue
+├── pyproject.toml                     Package metadata (pip install .)
 ├── audit/
 │   ├── 13-connector-audit.md          Full coded audit of 13 public connectors
 │   └── coding-sheet.csv               Machine-readable factor codes and scores
+├── src/
+│   ├── README.md                      Scanner usage
+│   └── paara_scanner/                 Working scanner (stdlib only)
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── cli.py                     audit / score / scan / check commands
+│       ├── models.py                  Factor codes, Connector, ScoreResult
+│       ├── scoring.py                 Seven-factor rule (banded U as N / U as Y)
+│       ├── heuristics.py              Documentation triage with evidence snippets
+│       ├── io.py                      CSV / JSON / doc-folder loading
+│       └── data/
+│           ├── connectors.csv         Bundled 13-connector dataset
+│           └── connectors.json        Same dataset as JSON
+├── tests/
+│   ├── test_scoring.py                Reproduces all 13 published bands
+│   ├── test_heuristics.py             Triage behaviour
+│   └── test_cli.py                    End-to-end CLI tests
+├── examples/
+│   └── slack.json                     Example JSON connector spec
 └── templates/
     ├── connector-audit-checklist.md   Step-by-step audit checklist + vendor questions
     └── connector-dpia-template.md     Connector-layer DPIA template
