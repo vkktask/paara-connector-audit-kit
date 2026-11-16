@@ -9,13 +9,14 @@ Documentation, teardowns, and open training for the PAARA Connector Audit Kit. A
 | [dataset-and-method.md](dataset-and-method.md) | **PAARA Dataset and Method** — the full coded 13-connector audit, the seven-factor scoring rule, factor prevalence, reproduce steps, limitations, and caveats. Documentation retrieved 9 November 2026. Headline counts are the author's audit and are **not independently verified**. |
 | [teardowns/connector-spy-test-1-gmail-to-chatgpt.md](teardowns/connector-spy-test-1-gmail-to-chatgpt.md) | **Connector Spy Test #1 — Gmail → ChatGPT** — Teardown #1. Four PAARA checks run live on camera, plus the leader X thread draft and the 60-second Reel script. **Status: pre-filming draft — all scores, the verdict, and the one setting to change are blank (TO BE FILLED from a filmed live test).** Gmail → ChatGPT is not one of the 13 audited connectors, so no score carries over. |
 | [teardowns/connector-spy-test-2-slack-to-chatgpt.md](teardowns/connector-spy-test-2-slack-to-chatgpt.md) | **Connector Spy Test #2 — Slack → ChatGPT** — Teardown #2. Four PAARA checks run live on camera, plus the leader X thread draft and the 60-second Reel script. **Status: pre-filming draft — all scores, the verdict, and the one setting to change are blank (TO BE FILLED from a filmed live test).** Slack → ChatGPT is not one of the 13 audited connectors — Slack appears there only as an MCP connector, a different integration — so no score carries over. |
-| [training/modules-0-2.md](training/modules-0-2.md) | **Governing AI Connectors** — the free, open, hands-on course. Modules 0 (Inventory), 1 (Five PAARA Questions), and 2 (Scopes & Least Privilege) in full; Modules 3–7 in outline; capstone. Training text: **CC BY 4.0**. Audit-kit code: **MIT**. Not legal advice. |
+| [training/modules-0-2.md](training/modules-0-2.md) | **Governing AI Connectors** — the free, open, hands-on course. Modules 0 (Inventory), 1 (Five PAARA Questions), and 2 (Scopes & Least Privilege) in full; Modules 3–7 in full in [modules-3-7.md](training/modules-3-7.md); capstone. Training text: **CC BY 4.0**. Audit-kit code: **MIT**. Not legal advice. |
+| [training/modules-3-7.md](training/modules-3-7.md) | **Governing AI Connectors — Modules 3–7 + Capstone** — Module 3 (Prompt-injection defence), Module 4 (Logging & reconstructability), Module 5 (Agent identity), Module 6 (DPIA for a connector), Module 7 (Approved list & rollout), plus capstone. Training text: **CC BY 4.0**. Audit-kit code: **MIT**. Not legal advice. |
 
 ## Start here
 
 1. Read the [dataset and method](dataset-and-method.md) — that is the evidence base everything else stands on.
 2. Run the kit yourself: `PYTHONPATH=src python -m paara_scanner audit` reproduces all 13 bands exactly (9 Critical lower / 12 Critical upper, 20 tests passing).
-3. Work through the [training modules](training/modules-0-2.md) on your own stack, starting with the Module 0 inventory.
+3. Work through the [training modules](training/modules-0-2.md) and [Modules 3–7 + Capstone](training/modules-3-7.md) on your own stack, starting with the Module 0 inventory.
 4. When a teardown is filmed, its scores are filled in from the filmed test only — never from memory, documentation, or the 13-connector audit.
 
 ## Source data
