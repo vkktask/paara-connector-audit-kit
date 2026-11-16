@@ -19,9 +19,9 @@ Enterprise AI assistants reach organisational data through connectors. A governa
 3. A connector DPIA template and an audit checklist.
 4. A worked example: the full coded audit of 13 public connectors, with evidence-based scores.
 
-## The PAARA methodology (six components)
+## The PAARA methodology (6–8 components)
 
-Per the SSRN paper (DOI 10.2139/ssrn.6784078), PAARA is a six-component practitioner methodology:
+PAARA is presented here as a **6–8 component** methodology. The SSRN abstract describes it as a six-component methodology; the ICAIC 2027 paper refers to an eight-component process. Rather than force one number, this repository presents the range and names both sources. That is fine — the method is still growing, the evidence base is still growing, and neither we nor the world are perfect. The six components listed in the SSRN paper are:
 
 | # | Component | What it does |
 |---|-----------|--------------|
@@ -34,7 +34,7 @@ Per the SSRN paper (DOI 10.2139/ssrn.6784078), PAARA is a six-component practiti
 
 The methodology identifies five regulatory gaps not addressed by any current authority, including the absence of connector-specific DPIA templates, insider-risk amplification analysis, and WP29 nine-criteria mapping at the connector layer. This repository is a step toward closing the first of those gaps: it ships a connector-specific DPIA template (see `templates/`).
 
-> **Note on component count.** The SSRN abstract describes PAARA as a six-component methodology, and this repository follows that description. The ICAIC 2027 paper refers to an eight-component process. That inconsistency is an open item to reconcile in a future revision of the methodology paper; nothing in this kit depends on which count is used — the scoring rules and templates here stand on their own.
+> **Note on component count.** PAARA is presented in this repository as a **6–8 component** methodology: the SSRN abstract describes it as six-component, and the ICAIC 2027 paper refers to an eight-component process. That range is an open item to reconcile in a future revision of the methodology paper; nothing in this kit depends on which count is used — the scoring rules and templates here stand on their own.
 
 > **Note on regulatory submissions.** The SSRN abstract states that regulatory submissions based on this methodology were filed with the UK ICO, CNIL (France), IMDA (Singapore), and NIST (USA) in May 2026. That statement is corroborated only from the paper itself, not from a regulator website, and this repository makes no further claim about regulator adoption or government use.
 
@@ -124,6 +124,12 @@ a human coder must verify every code before relying on the score.
 ├── LICENSE                            MIT License
 ├── CONTRIBUTING.md                    How to re-code, extend the corpus, or report an issue
 ├── pyproject.toml                     Package metadata (pip install .)
+├── docs/                            Dataset & method, teardowns, and open training (see [docs/README.md](docs/README.md))
+│   ├── dataset-and-method.md        PAARA dataset and method — 13-connector audit
+│   ├── teardowns/
+│   │   └── connector-spy-test-1-gmail-to-chatgpt.md
+│   └── training/
+│       └── modules-0-2.md           Training Modules 0–2 (Modules 3–7 in outline)
 ├── audit/
 │   ├── 13-connector-audit.md          Full coded audit of 13 public connectors
 │   └── coding-sheet.csv               Machine-readable factor codes and scores

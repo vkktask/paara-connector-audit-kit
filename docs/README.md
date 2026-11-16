@@ -1,0 +1,33 @@
+# PAARA Docs
+
+Documentation, teardowns, and open training for the PAARA Connector Audit Kit. All of it is by Vivek Kumar, creator of PAARA (Privacy-Aware AI Risk Architecture), and all of it is published so the method can be checked, re-run, and challenged — dataset first, claims second.
+
+## Contents
+
+| Document | What it is |
+|---|---|
+| [dataset-and-method.md](dataset-and-method.md) | **PAARA Dataset and Method** — the full coded 13-connector audit, the seven-factor scoring rule, factor prevalence, reproduce steps, limitations, and caveats. Documentation retrieved 9 November 2026. Headline counts are the author's audit and are **not independently verified**. |
+| [teardowns/connector-spy-test-1-gmail-to-chatgpt.md](teardowns/connector-spy-test-1-gmail-to-chatgpt.md) | **Connector Spy Test #1 — Gmail → ChatGPT** — Teardown #1. Four PAARA checks run live on camera, plus the leader X thread draft and the 60-second Reel script. **Status: pre-filming draft — all scores, the verdict, and the one setting to change are blank (TO BE FILLED from a filmed live test).** Gmail → ChatGPT is not one of the 13 audited connectors, so no score carries over. |
+| [training/modules-0-2.md](training/modules-0-2.md) | **Governing AI Connectors** — the free, open, hands-on course. Modules 0 (Inventory), 1 (Five PAARA Questions), and 2 (Scopes & Least Privilege) in full; Modules 3–7 in outline; capstone. Training text: **CC BY 4.0**. Audit-kit code: **MIT**. Not legal advice. |
+
+## Start here
+
+1. Read the [dataset and method](dataset-and-method.md) — that is the evidence base everything else stands on.
+2. Run the kit yourself: `PYTHONPATH=src python -m paara_scanner audit` reproduces all 13 bands exactly (9 Critical lower / 12 Critical upper, 20 tests passing).
+3. Work through the [training modules](training/modules-0-2.md) on your own stack, starting with the Module 0 inventory.
+4. When a teardown is filmed, its scores are filled in from the filmed test only — never from memory, documentation, or the 13-connector audit.
+
+## Source data
+
+- Full coded audit: [`audit/13-connector-audit.md`](../audit/13-connector-audit.md)
+- Machine-readable coding sheet: [`audit/coding-sheet.csv`](../audit/coding-sheet.csv)
+- Scanner: [`src/paara_scanner/`](../src/paara_scanner/)
+- Templates: [`templates/`](../templates/)
+
+## Corrections
+
+Scores are versioned to the documentation snapshot they were coded from. If a code is not supported by the cited documentation, open an issue on [GitHub Issues](https://github.com/vkktask/paara-connector-audit-kit/issues) with the connector, the factor, and the documentation link. Supported corrections are applied to the coding sheet, re-scored with the scanner, and noted as a version change — never silently edited.
+
+---
+
+*PAARA — Privacy-Aware AI Risk Architecture · Vivek Kumar · [vivekkumar.tech](https://www.vivekkumar.tech/) · [github.com/vkktask/paara-connector-audit-kit](https://github.com/vkktask/paara-connector-audit-kit)*
