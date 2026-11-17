@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24325766.svg)](https://doi.org/10.5281/zenodo.24325766)
 # PAARA — Connector Audit Kit
 
 An open, practitioner toolkit for auditing AI connectors before they are enabled in an enterprise.
