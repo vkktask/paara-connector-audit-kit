@@ -1,0 +1,29 @@
+{
+  "title": "PAARA Connector Audit Kit",
+  "description": "An open, practitioner toolkit for auditing AI connectors before they are enabled in an enterprise. PAARA (Privacy-Aware AI Risk Architecture) treats the connector — OAuth/API permissions, Model Context Protocol (MCP) servers, and retrieval pipelines — as the unit of governance, and scores it with an explicit, reproducible seven-factor rule (F1–F7) that yields a deployment decision. The kit ships a 20-test Python scanner (standard library only), a coded audit of 13 public connectors from documentation retrieved 9 November 2026 (9 of 13 Critical on the lower bound, 12 of 13 on the upper bound, none Low), a connector audit checklist, and a connector DPIA template.",
+  "creators": [
+    {
+      "name": "Kumar, Vivek",
+      "affiliation": "Independent professional (AI Governance & Data Privacy, Cyber GRC)",
+      "orcid": "0009-0008-3767-200X"
+    }
+  ],
+  "keywords": ["AI governance", "AI connectors", "Model Context Protocol", "MCP security", "connector audit", "DPIA", "prompt injection", "agentic AI", "PAARA"],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "related_identifiers": [
+    {
+      "identifier": "10.2139/ssrn.6784078",
+      "relation": "isSupplementTo",
+      "scheme": "doi",
+      "resource_type": "publication-article"
+    },
+    {
+      "identifier": "https://github.com/vkktask/paara-connector-audit-kit",
+      "relation": "isIdenticalTo",
+      "scheme": "url",
+      "resource_type": "software"
+    }
+  ]
+}
