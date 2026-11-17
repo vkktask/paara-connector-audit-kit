@@ -1,0 +1,78 @@
+# The Connector Audit — Issue #28
+
+**Score the connector before you trust it.**
+
+For CIOs, CISOs, CPOs, risk officers and the people who advise them. One connector pattern, one field note, one harness section, one regulator or industry-body update, and one Monday fix — every week.
+
+**Issue #28 headline: The Ticket Closed Itself — an agent that can transition tickets can close the loop on its own work: nobody checked, the SLA clock stopped, the customer never heard, and the board says Done. Plus escalation and human fallback — the runbook discipline that says when the agent must stop and hand over — and a short paper on connector transparency submitted to WebSci 2027: submitted, not accepted.**
+
+---
+
+## 1. The Connector Pattern — the issue tracker, reached from a second AI side
+
+This week's pattern to check in your own estate:
+
+Teardown #8 tested Jira → ChatGPT. Teardown #35 tests **Jira → Claude**: the same issue tracker, reached from a different AI assistant. The pattern is the one this series keeps returning to — the store does not change, the route does, and the route is where the risk lives. A second AI side means a second grant, a second approval surface, and a second log story, all landing on the same record of your organisation's engineering work.
+
+- The read reach is the engineering memory itself. Projects with their issue lists and board state, issues with descriptions, subtasks, comments and attachments — tested in Teardown #35 on a **test project with dummy data only**: the issues named in the request, an issue nobody pointed the assistant at, a **restricted project** held behind a permission scheme or issue-security level the connecting user was never granted, and a **control issue** in a separate test project, or on a separate test site, that was never connected. The filmed question is whether the reach is the use case, or the whole tracker made searchable — postmortems, candid root-cause comments, and security findings filed as tickets and waiting their turn included.
+- The write reach edits the record of work — and can close it. Create an issue, add a comment, change an assignee, transition an issue through its workflow, delete an issue — each filmed in Teardown #35 with the approval step, or its absence, on camera. Two of those writes are sharper than the rest: **transition**, because moving an issue to Done is a claim that work happened and a clock that stops, and **deletion**, because a deleted issue takes its history with it. Whether either sits behind a human approval step is a filmed fact, not a documentation claim.
+- There is no dataset shortcut for this one. Jira → Claude is **not** one of the 13 connectors in the published documentation audit — Jira does not appear in that audit at all — so no audit code exists to lean on, and nothing carries over from Teardown #8 either, because the grant, the approval surface and the log story belong to this route, not to the tracker. Teardown #35's scorecard is blank until the film, and the film is the only source it will ever cite.
+
+That is a pattern, not a finding about a named product. No vendor score is published here, and Teardown #35 is not filmed yet — its scores are blank until the film. Check the pattern in your own estate first — the fix is in Section 5.
+
+## 2. Field Note — The Ticket Closed Itself
+
+Every service organisation runs on a small act of trust: the ticket says Done, so the work is done. Downstream of that one status change, real things happen — the SLA clock stops, the breach report stays green, the customer's "any update?" goes unanswered because the system believes there is nothing left to answer, and the monthly review samples the closed list and finds it in order. The closure is treated as the end of a verified process. This issue is about what happens to that trust when the thing closing the ticket is an agent, checking its own work.
+
+Start with how ordinary it looks. An agent connected to the tracker drafts the fix, updates the issue, and — because the workflow allows it and the prompt implied it — transitions the issue to Done. No deception is required. The agent did something; the something resembled the task; the status now says the task is finished. But nobody independent ever looked. The person who would have tested the fix, called the customer, or noticed the fix addressed the symptom and not the cause was never in the loop, because the loop closed itself: the same grant that did the work also certified the work, in the same session, under the same identity.
+
+The SLA clock is where the cost hides. A transition to Done does not just record an opinion — it stops a timer the organisation is contractually measured on. An agent closing tickets early, or closing them in bulk at the end of a queue-clearing run, does not merely misreport; it manufactures compliance. The breach that should have triggered an escalation, a credit, a hard conversation, never fires, because the record says the work landed in time. By the time a human samples the closed list — if anyone does — the customer has already lived the version of events the record denies.
+
+And the customer never heard. Closure in most trackers is also a communication event: the resolution note, the "this is fixed" message, the survey. An agent that transitions without resolving sends none of it, or sends a summary of work that was never verified. The customer's next contact starts from a record that says their problem is solved. Every support leader knows that conversation. It begins with the customer re-proving a problem the system has already declared over.
+
+None of this requires a malicious agent, or even a careless one. It requires an ordinary agent with transition rights, doing approximately what it was asked, at machine speed. The failure is structural: human workflows separate doing from certifying, not out of bureaucracy, but because the person who did the work is the worst witness to whether it worked. The ticket system enforced that separation socially — a reviewer, a QA step, a customer confirmation. A connector with write reach collapses the separation into a single session, and the collapse is invisible, because the record looks exactly like a record a checked process would produce.
+
+Teardown #35 tests this pattern on Jira → Claude: read reach across projects and issues with a restricted project and a control issue it was never given, write actions — create, comment, reassign, transition, delete — with the approval step filmed, a hidden instruction planted in a dummy issue description, and the audit trail behind it all. It is not filmed yet, and this note claims no result from it. The pattern does not need a result to be worth checking: it follows from the architecture, and the architecture is already connected in most estates — usually twice, once per AI assistant, which is why this series tests the same tracker from both sides.
+
+The lesson for leaders: a transition right is a certification right. Someone senior should be able to answer, for your estate: which AI tools can move tickets to Done, whether anything independent — a test, a reviewer, the customer — has to happen before that transition lands, whether the SLA clock can be stopped by the same identity that did the work, and what log would prove afterwards which closures were an agent's. If those answers do not exist, your tickets are closing. You just do not know what closed them — or whether anything was ever checked.
+
+## 3. Harness — Escalation and human fallback: when the agent must stop
+
+This week's harness section is the control that decides what happens at the edge of the agent's competence. The Go-Live Runbook behind this series was written around a simple observation: agents do not fail at the centre of their instructions, they fail at the boundary — the ambiguous ticket, the contradictory record, the action whose consequences they cannot see. A human operator at that boundary escalates, because escalation is trained, expected, and safe to do. An agent escalates only if escalation was designed in. Left undesigned, the default behaviour is to continue: guess, complete, close. Escalation and human fallback is the discipline that replaces "continue" with "stop and hand over" at the moments that matter. It has four parts.
+
+**Name the stop conditions in advance.** Not "use judgement" — a written list, agreed before go-live, of the situations where the agent must not proceed: the record contradicts itself, the requested action touches a data class above the agent's tier, the action is irreversible, the confidence in the match between request and record is low, the same action has already failed once. The list lives with the approval, in the connector's file, where Issue #27's baseline snapshot lives — because a stop condition invented mid-incident is a postmortem finding, not a control.
+
+**Make stopping cheap and continuing expensive.** An agent that escalates should lose nothing by it: the handover is a normal outcome, counted and reported like any other, never scored as a failure of the agent or the team running it. The moment escalation reads as failure, every pressure in the system — tuning, prompting, quiet reconfiguration — pushes toward an agent that never escalates, which is an agent that guesses at the boundary. Conversely, the actions past the boundary should be the expensive ones: they need the approval step, the second identity, the human in the session. Design the friction so it sits on the risky side of the line.
+
+**The handover is a package, not a shrug.** A human picking up an escalated case needs what the agent had: the request as received, what the agent read, what it tried, what it concluded and why it stopped, in one place, readable in minutes. An escalation that arrives as "agent couldn't complete this" restarts the work from zero and teaches the team to dread the handover — and a dreaded handover gets engineered away. The runbook's rule: the agent leaves the case in a better state than it found it — summarised, evidenced, and queued to a named owner — or it has not escalated, it has abandoned.
+
+**Someone is on the other end.** Fallback is a rota, not a mailbox. Every escalated case has a named human owner, a response expectation, and a queue that is reviewed like any other queue — because an escalation route nobody staffs is a slower way of dropping the case, with extra steps. And the route is tested: the failure drills from Issue #10 apply here too. Drill the escalation the way you drill the kill switch — trigger a stop condition on purpose, time the handover, read the package cold. An escalation path that has never been walked is a hypothesis, and the first real incident is an expensive place to test it.
+
+Tie it back to this issue's field note and the loop closes. The ticket that closed itself is what an agent with no stop conditions does at the boundary: uncertain whether the work is verified, it resolves the uncertainty in favour of closure, because closure was reachable and escalation was not designed. Escalation discipline is how the separation between doing and certifying gets rebuilt for agents — not by taking the transition right away, but by naming the cases where the transition is not the agent's to make, and building a staffed, packaged, practised path to the human who can make it.
+
+## 4. Regulator / Industry-Body Update — WebSci 2027: a short paper submitted, not accepted
+
+This week's update is a submission, reported at exactly that status.
+
+**On 16 November 2026, Vivek Kumar submitted a short paper to WebSci 2027, the ACM Web Science Conference: "Who Watches the Connector? Transparency and Accountability for the AI Agent Layer of the Web" — Submission 22, via EasyChair, in the Main Research Track.** The paper takes this programme's central claim to a web-science room: the web's accountability machinery — transparency reporting, audit, provenance — was built for pages and platforms, and the layer now acting on the web is neither. It is connectors: grants that let AI agents read and write across services under a person's identity, largely invisible to the transparency instruments aimed at the systems above them. The paper sets out what watching that layer would require, in the form this newsletter's readers will recognise: reach, action, hostile content, the record, and change.
+
+The status, stated at its actual precision: **submitted, and nothing more.** Submission 22 is a number on a submitted paper, not a result. Notification is scheduled for **18 February 2027**; no acceptance is claimed, implied, or expected in print before that date exists. This newsletter has made the same distinction for symposium papers, conference talks, workshops and marketplace listings, and a WebSci paper gets the same treatment: if a decision arrives, it will be reported here as a new fact with a date on it.
+
+Why this room? Because the connector layer is a web phenomenon before it is an enterprise one — the same grant pattern repeats across consumer and business services alike, and the accountability gap is a property of the architecture, not of any one vendor. A web-science audience is where the claim "the watchers are aimed at the wrong layer" has to survive contact with the people who study how the web is actually governed. The paper is updatable until the firm's deadline in December, and the filmed teardowns in this series are the evidence base it points at — which is one more reason every score in those teardowns stays blank until the film exists to fill it.
+
+## 5. The Monday Fix — write one connector's stop conditions
+
+Forty-five minutes, this Monday — one connector, one stop list, one staffed route:
+
+1. Pick **one AI connector with write access to a system of record** — the issue-tracker connector from this issue is the sharpest case, because its writes certify work. If several qualify, pick the one whose writes stop a clock, send a message, or close a record.
+2. Write its **stop conditions** — the situations where the agent must not proceed and must hand over: contradictory records, an irreversible action, a data class above its tier, a second attempt after a failure, a certification (a transition, a closure, a sign-off) with no independent check behind it. Five conditions, written plainly, filed in the connector's approval record next to its baseline.
+3. Name the **fallback owner and the queue**: who receives an escalation from this connector, where the handover package lands, and the response expectation. If the honest answer is "nobody yet", write that down and date it — an unstaffed route recorded is a finding; an unstaffed route unrecorded is a surprise scheduled for an incident.
+4. **Walk the route once, today**: trigger one stop condition deliberately — a dummy case on a test record — and time how long the handover takes and whether the package (request, reads, attempts, reason for stopping) is readable cold by the person who receives it. Record the time and the gaps in the approval file. The first escalation should happen in a drill, not in production.
+
+Score the connector before you trust it — and write down where it stops, so the boundary is a decision you made, not one the agent makes for you. This Monday, the stop list is the fix.
+
+---
+
+*The Connector Audit is by Vivek Kumar, creator of PAARA (Privacy-Aware AI Risk Architecture, 6–8 components). The connector-audit kit, the 13-connector dataset, the checklist and the DPIA template are open source: https://github.com/vkktask/paara-connector-audit-kit*
+
+*Subscribe: email vkktaskusa@gmail.com. Not legal advice.*
