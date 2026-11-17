@@ -111,6 +111,30 @@ try:
         str(tool_names),
     )
 
+    # TDQS metadata: annotations, full input descriptions, output schemas
+    for t in tools:
+        ann = t.get("annotations") or {}
+        check(
+            f"annotations: {t['name']}",
+            ann.get("readOnlyHint") is True
+            and ann.get("destructiveHint") is False
+            and ann.get("idempotentHint") is True
+            and ann.get("openWorldHint") is False,
+            str(ann),
+        )
+        props = t["inputSchema"].get("properties", {})
+        check(
+            f"input descriptions: {t['name']}",
+            all(p.get("description") for p in props.values()),
+            str([k for k, p in props.items() if not p.get("description")]),
+        )
+        check(
+            f"outputSchema: {t['name']}",
+            t.get("outputSchema", {}).get("type") == "object"
+            and bool(t["outputSchema"].get("properties")),
+            str(t.get("outputSchema")),
+        )
+
     listing = call_tool("list_connectors", {})
     check("list_connectors count", listing["count"] == 13, str(listing["count"]))
     by_name = {c["name"]: c for c in listing["connectors"]}
@@ -119,6 +143,14 @@ try:
         by_name["Slack MCP"]["default_lower"] == "Critical"
         and by_name["Slack MCP"]["default_upper"] == "Critical",
         str(by_name.get("Slack MCP")),
+    )
+    check(
+        "list_connectors self-describing",
+        listing["factors"][0]["name"] == "Sensitive-data reach"
+        and listing["factors"][6]["name"] == "Agentic action capability"
+        and listing["band_meanings"]["Critical"].startswith("Agentic")
+        and listing["connectors"][0]["codes"]["F1"] == "U",
+        str(listing.get("factors")),
     )
 
     # Slack MCP: Y N N N Y Y Y -> Critical/Critical, restricted High/High
@@ -134,6 +166,19 @@ try:
         and slack["restricted_upper"] == "High"
         and slack["published_bands_match"],
         str(slack),
+    )
+    check(
+        "lookup_connector self-describing factors",
+        slack["factors"][0] == {
+            "factor": "F1",
+            "name": "Sensitive-data reach",
+            "weight": "High",
+            "code": "Y",
+            "code_meaning": "documented present",
+        }
+        and slack["factors"][6]["name"] == "Agentic action capability"
+        and set(slack["band_meanings"]) == {"Low", "Moderate", "High", "Critical"},
+        str(slack.get("factors")),
     )
 
     # Stripe MCP: Y N Y N Y Y Y -> Critical/Critical, no restricted band
@@ -160,6 +205,13 @@ try:
         scored["default_lower"] == "Critical" and scored["default_upper"] == "Critical"
         and scored["restricted_lower"] is None,
         str(scored),
+    )
+    check(
+        "score_connector self-describing",
+        scored["factors"][2]["name"] == "Non-user-bound credentials"
+        and scored["factors"][2]["code"] == "Y"
+        and set(scored["band_meanings"]) == {"Low", "Moderate", "High", "Critical"},
+        str(scored.get("factors")),
     )
 
     # Score Slack's codes with the write-limiting control applied
