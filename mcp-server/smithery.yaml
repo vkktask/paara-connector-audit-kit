@@ -1,0 +1,18 @@
+# Smithery stdio configuration for the PAARA Connector Audit MCP server.
+# The server is a single dependency-free Python file; Smithery (or any
+# client) starts it with python3 and talks JSON-RPC over stdio.
+# No configuration options are required, so configSchema is empty.
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+  commandFunction:
+    |-
+    (config) => ({
+      command: 'python3',
+      args: ['paara_mcp_server.py'],
+      env: {}
+    })
+  exampleConfig:
+    {}
