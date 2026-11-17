@@ -3,6 +3,35 @@
 
 An open, practitioner toolkit for auditing AI connectors before they are enabled in an enterprise.
 
+## MCP Server
+
+PAARA ships a working MCP (Model Context Protocol) server: a stdlib-only Python implementation over stdio (hand-rolled JSON-RPC, no SDK dependency) at `mcp-server/paara_mcp_server.py`. It implements `initialize`, `ping`, `tools/list` and `tools/call`, and exposes three MCP tools:
+
+- `score_connector` — score any connector from its F1–F7 factor codes (Y/N/U); returns the PAARA score bands (default and restricted, lower/upper) with reasons.
+- `lookup_connector` — look up any of the 13 audited connectors by name; returns its F1–F7 codes and bands.
+- `list_connectors` — list all 13 audited connectors with their default bands.
+
+Run it:
+
+```bash
+python3 mcp-server/paara_mcp_server.py
+```
+
+Client configuration (Claude Desktop / generic MCP clients):
+
+```json
+{
+  "mcpServers": {
+    "paara-connector-audit": {
+      "command": "python3",
+      "args": ["mcp-server/paara_mcp_server.py"]
+    }
+  }
+}
+```
+
+Full server documentation: `mcp-server/README.md`. Protocol and scoring tests: `mcp-server/test_paara_mcp_server.py` (26 checks, all passing).
+
 **PAARA** (Privacy-Aware AI Risk Architecture) treats the **connector** — OAuth / API permissions, Model Context Protocol (MCP) servers, and retrieval pipelines — as the unit of governance, and scores it with an explicit, reproducible rule set that yields a deployment decision.
 
 - **Author:** Vivek Kumar — Independent professional (AI Governance & Data Privacy, Cyber GRC); Independent Peer Reviewer / Subject Matter Expert
