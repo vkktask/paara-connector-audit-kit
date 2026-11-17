@@ -1,0 +1,37 @@
+# This file is used by GitHub to show how to cite this software.
+# See https://citation-file-format.github.io/ for the format.
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "PAARA Connector Audit Kit"
+abstract: "An open, practitioner toolkit for auditing AI connectors before they are enabled in an enterprise. PAARA (Privacy-Aware AI Risk Architecture) treats the connector — OAuth / API permissions, Model Context Protocol (MCP) servers, and retrieval pipelines — as the unit of governance, and scores it with an explicit, reproducible seven-factor rule that yields a deployment decision. Ships a 20-test Python scanner, a coded audit of 13 public connectors, a connector audit checklist, and a connector DPIA template."
+authors:
+  - family-names: Kumar
+    given-names: Vivek
+    affiliation: "Independent professional (AI Governance & Data Privacy, Cyber GRC)"
+    email: vkktaskusa@gmail.com
+    # TODO: add orcid once the author has one. Do not invent an ORCID.
+    # orcid: https://orcid.org/0000-0000-0000-0000
+version: 1.2
+# TODO: set date-released to the date of the v1.2 GitHub release tag when it is created.
+date-released: 2026-11-16
+doi: 10.2139/ssrn.6784078
+url: https://github.com/vkktask/paara-connector-audit-kit
+repository-code: https://github.com/vkktask/paara-connector-audit-kit
+license: MIT
+keywords:
+  - AI governance
+  - AI connectors
+  - MCP
+  - connector audit
+  - DPIA
+  - PAARA
+references:
+  - type: article
+    title: "Privacy-Aware AI Risk Architecture (PAARA)"
+    authors:
+      - family-names: Kumar
+        given-names: Vivek
+    year: 2026
+    doi: 10.2139/ssrn.6784078
+    url: https://doi.org/10.2139/ssrn.6784078
